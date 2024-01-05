@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+}
+.justify-center{
+  justify-content: center;
+}
+.align-center{
+  align-items: center;
+}
+.justify-btw{
+  justify-content: space-between;
+}
+.flex-col{
+  flex-direction: column;
+}
+.m-auto{
+  margin: auto;
+}
+.mx-auto{
+  margin: 0 auto;
+}
+

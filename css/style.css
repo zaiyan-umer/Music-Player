@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700;800;900&display=swap");
+:root {
+	--spotify-green: #1fdf64;
+	--bg-grey: #121212;
+	--text-sm-color: #929292;
+	--playlist-bg: #181818;
+	--heading-large: 32px;
+	--heading-sm: 24px;
+	--text: 16px;
+	--text-sm: 14px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	font-family: "Cabin", sans-serif;
+}
+body {
+	background-color: black;
+	color: white;
+}
+
+/* ---------- Sidebar ---------- */
+section.sidebar {
+	width: 25vw;
+	background-color: black;
+}
+/* Nav and Library*/
+.sidebar nav,
+.library {
+	background-color: var(--bg-grey);
+	padding: 12px 16px;
+	margin: 8px;
+	border-radius: 7px;
+}
+.library {
+	overflow: auto;
+	scroll-behavior: smooth;
+}
+nav ul li,
+.library-heading {
+	gap: 15px;
+	margin: 20px 0;
+	cursor: pointer;
+	font-weight: 900;
+	font-size: 17px;
+	transition: all 0.05s ease-in-out;
+}
+nav ul li:nth-child(2),
+.library-heading {
+	color: var(--text-sm-color);
+}
+nav ul li:hover:nth-child(2),
+.library-heading:hover {
+	color: white;
+}
+
+/* Songlist */
+.songlist {
+	height: 65vh;
+	overflow-y: hidden;
+	scroll-behavior: smooth;
+}
+.sidebar:hover .songlist {
+	overflow-y: scroll;
+}
+.songlist ul li span {
+	gap: 10px;
+}
+.songlist ul li span:nth-child(1) > span {
+	color: white;
+	font-size: var(--text);
+}
+.songlist ul li span:nth-child(2) {
+	color: var(--text-sm-color);
+	font-size: var(--text-sm);
+	transition: all 0.1s ease-in-out;
+}
+.songlist ul li:hover span:nth-child(2) {
+	color: white;
+}
+.songlist ul li {
+	padding: 12px;
+	margin: 8px 0;
+	width: 333px;
+	border: 1px solid rgb(29, 29, 29);
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+}
+.songlist ul li:hover {
+	background-color: #262626;
+}
+.songlist::-webkit-scrollbar-thumb {
+	background-color: #898989b5;
+}
+.songlist::-webkit-scrollbar-thumb:hover {
+	background-color: #898989;
+}
+
+/* ---------- Main Page ---------- */
+section.main {
+	width: 75vw;
+	padding: 12px 16px;
+	margin: 8px 8px 8px 0;
+	border-radius: 7px;
+	background: rgb(65, 51, 51);
+	background: linear-gradient(180deg, rgba(65, 51, 51, 1) 16%, rgba(18, 18, 18, 1) 35%);
+}
+.playlist-heading {
+	font-size: var(--heading-large);
+	font-weight: 800;
+	margin: 20px 0;
+	padding: 10px;
+}
+.playlist-container {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+}
+
+/* Playlist */
+.playlist {
+	background-color: var(--playlist-bg);
+	width: 210px;
+	padding: 14px 0;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	position: relative;
+}
+.playlist:hover {
+	background-color: #222222;
+}
+.playlist:hover .play-img {
+	top: 150px;
+	opacity: 1;
+}
+.playlist .play-img {
+	background-color: var(--spotify-green);
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: absolute;
+	top: 180px;
+	right: 30px;
+	opacity: 0;
+	transition: all 0.3s ease-in-out;
+	transition-property: top, opacity;
+}
+.play-img:hover {
+	transform: scale(1.05);
+}
+.playlist > div:nth-child(1) {
+	width: 180px;
+	margin: auto;
+}
+.playlist > div:nth-child(1) img {
+	width: 180px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 10px;
+}
+.playlist .play-img img {
+	width: 25px;
+}
+.playlist h3,
+.playlist p {
+	padding: 0 8px 0 16px;
+}
+.playlist p {
+	color: var(--text-sm-color);
+	font-size: var(--text-sm);
+	margin-top: 12px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+	position: absolute;
+	bottom: 0;
+	background-color: black;
+	width: 100%;
+	padding: 10px;
+}
+footer img {
+	width: 30px;
+	cursor: pointer;
+}
+.btn {
+	gap: 10px;
+	margin-top: 5px;
+}
+.slidercontainer span {
+	font-size: 11px;
+	color: var(--text-sm-color);
+}
+footer .song-name {
+	position: absolute;
+	top: 20%;
+	left: 20px;
+	font-size: 16px;
+}
+footer .song-name span {
+	margin: 0 2px;
+}
+footer .song-name #playingGif {
+	opacity: 0;
+	width: 130px;
+	transition: all 0.2s ease-in-out;
+}
+footer .song-name > img {
+	cursor: auto;
+}
+footer .song-name > img:nth-child(1) {
+	opacity: 0;
+	margin-right: 5px;
+}
+.volume {
+	gap: 8px;
+	position: absolute;
+	top: 40%;
+	right: 3%;
+}
+.volume img {
+	width: 24px;
+}
+.volume-img {
+	width: 25px;
+	height: 24px;
+	background-image: url("../img/volume.svg");
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.mute {
+	background-image: url("../img/mute.svg");
+}
+#soundGif,
+.musicGif {
+	width: 40px;
+	transition: opacity 0.2s ease-in-out;
+}
+.musicGif {
+	position: absolute;
+	top: 190px;
+	right: 20px;
+	opacity: 0;
+}
