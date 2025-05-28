@@ -2,9 +2,12 @@
 	section.sidebar {
 		width: 100%;
 	}
-
 	section.main {
 		width: 100%;
+		margin: 0;
+	}
+	footer {
+		position: relative;
 	}
 }
 
@@ -12,24 +15,18 @@
 	.playlist {
 		width: 45%;
 	}
-
-	footer {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 10px;
-	}
 }
 
 @media (max-width: 480px) {
 	.playlist {
 		width: 100%;
 	}
-	
 	.playlist-heading {
 		font-size: var(--heading-sm);
 	}
-
-	footer .song-name {
-		font-size: var(--text-sm);
+	footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
 	}
 }
