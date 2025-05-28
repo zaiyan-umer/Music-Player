@@ -26,7 +26,7 @@ Check it out here:
 
 ## 📸 UI
 
-> !![image](https://github.com/user-attachments/assets/d18aae8e-a7d6-49ef-b5aa-7e0a968d1f69)
+> ![image](https://github.com/user-attachments/assets/d18aae8e-a7d6-49ef-b5aa-7e0a968d1f69)
 
 
 ## 🚀 Getting Started
