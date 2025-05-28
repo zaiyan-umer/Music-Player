@@ -4,13 +4,14 @@ const playBtn = document.querySelector("#playBtn");
 const playingGif = document.querySelector("#playingGif");
 const soundGif = document.querySelector(".songplayicon");
 const songName = document.querySelector("#songName");
+const basePath = '/spotify/';
 let songs = [];
 let currentVolume = 1;
 let currentFolder = "Bollywood";
 
 const getSongs = async (folder) => {
   currentFolder = folder;
- let music = await fetch("songs/songs.json");
+ let music = await fetch(basePath + "songs/songs.json");
   let allSongs = await music.json();
   return allSongs[folder] || [];
 };
@@ -50,35 +51,35 @@ for (const song of songs) {
       if (!currentSong.paused && currentSong.src === fullPath) {
         currentSong.pause();
         playingGif.style.opacity = 0;
-        playBtn.src = "/img/play.svg";
-        li.querySelector(".songplayicon").src = "/img/play.svg";
-        li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="/img/play.svg" alt="">`;
+        playBtn.src = basePath + "img/play.svg";
+        li.querySelector(".songplayicon").src = "img/play.svg";
+        li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="img/play.svg" alt="">`;
       }
 
       // If same song is paused → Resume
       else if (currentSong.paused && currentSong.src === fullPath) {
         currentSong.play();
         playingGif.style.opacity = 1;
-        playBtn.src = "/img/pause.svg";
-        li.querySelector(".songplayicon").src = "/img/pause.svg";
+        playBtn.src = basePath + "img/play.svg";
+        li.querySelector(".songplayicon").src = "img/pause.svg";
         li.querySelector(".playNowImg").innerHTML = `
-          <img id="soundGif" src="/img/sound.gif" alt="">
-          <img class="songplayicon" src="/img/pause.svg" alt="">
+          <img id="soundGif" src="img/sound.gif" alt="">
+          <img class="songplayicon" src="img/pause.svg" alt="">
         `;
       }
 
       // New song → Play new song
       else {
         Array.from(liItems).forEach(item => {
-          item.querySelector(".songplayicon").src = "/img/play.svg";
-          item.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="/img/play.svg" alt="">`;
+          item.querySelector(".songplayicon").src = "img/play.svg";
+          item.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="img/play.svg" alt="">`;
         });
 
         playMusic(songFile);
-        li.querySelector(".songplayicon").src = "/img/pause.svg";
+        li.querySelector(".songplayicon").src = "img/pause.svg";
         li.querySelector(".playNowImg").innerHTML = `
-          <img id="soundGif" src="/img/sound.gif" alt="">
-          <img class="songplayicon" src="/img/pause.svg" alt="">
+          <img id="soundGif" src="img/sound.gif" alt="">
+          <img class="songplayicon" src="img/pause.svg" alt="">
         `;
       }
     });
@@ -131,11 +132,11 @@ const getPlaylist = async () => {
 getPlaylist();
 
 const playMusic = (track) => {
-  currentSong.src = `songs/${currentFolder}/${track}`;
+  currentSong.src = basePath + `songs/${currentFolder}/${track}`;
   currentSong.play();
 
   // Update footer play button and GIF
-  playBtn.src = "/img/pause.svg";
+  playBtn.src = basePath + "img/pause.svg";
   playingGif.style.opacity = 1;
   
   // Update song name
@@ -146,14 +147,14 @@ const playMusic = (track) => {
   const liItems = document.querySelector(".songlist").getElementsByTagName("li");
   Array.from(liItems).forEach(li => {
     if (li.dataset.file === track) {
-      li.querySelector(".songplayicon").src = "/img/pause.svg";
+      li.querySelector(".songplayicon").src = basePath + "img/pause.svg";
       li.querySelector(".playNowImg").innerHTML = `
-        <img id="soundGif" src="/img/sound.gif" alt="">
-        <img class="songplayicon" src="/img/pause.svg" alt="">
+        <img id="soundGif" src="img/sound.gif" alt="">
+        <img class="songplayicon" src="img/pause.svg" alt="">
       `;
     } else {
-      li.querySelector(".songplayicon").src = "/img/play.svg";
-      li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="/img/play.svg" alt="">`;
+      li.querySelector(".songplayicon").src = "img/play.svg";
+      li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="img/play.svg" alt="">`;
     }
   });
 };
@@ -169,13 +170,13 @@ document.querySelector("#playBtn").addEventListener("click", () => {
   }
   else if (currentSong.paused) {
     currentSong.play();
-    playBtn.src = "/img/pause.svg";
+    playBtn.src = basePath + "img/pause.svg";
     playingGif.style.opacity = 1;
     soundGif.style.opacity = 1;
 
   } else {
     currentSong.pause();
-    playBtn.src = "/img/play.svg";
+    playBtn.src = basePath + "img/play.svg";
     playingGif.style.opacity = 0;
     populateUL()
   }
