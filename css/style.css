@@ -21,14 +21,6 @@
 body {
 	background-color: black;
 	color: white;
-	line-height: 1.5;
-	overflow-x: hidden;
-}
-
-.container {
-	display: flex;
-	flex-wrap: wrap;
-	min-height: 100vh;
 }
 
 /* ---------- Sidebar ---------- */
@@ -36,26 +28,26 @@ section.sidebar {
 	width: 25vw;
 	background-color: black;
 }
+/* Nav and Library*/
 .sidebar nav,
 .library {
 	background-color: var(--bg-grey);
 	padding: 12px 16px;
 	margin: 8px;
-	border-radius: 8px;
+	border-radius: 7px;
 }
 .library {
-	overflow-y: auto;
+	overflow: auto;
+	scroll-behavior: smooth;
 }
 nav ul li,
 .library-heading {
-	display: flex;
-	align-items: center;
 	gap: 15px;
 	margin: 20px 0;
 	cursor: pointer;
-	font-weight: 700;
+	font-weight: 900;
 	font-size: 17px;
-	transition: color 0.2s ease-in-out;
+	transition: all 0.05s ease-in-out;
 }
 nav ul li:nth-child(2),
 .library-heading {
@@ -66,15 +58,16 @@ nav ul li:hover:nth-child(2),
 	color: white;
 }
 
+/* Songlist */
 .songlist {
 	height: 65vh;
 	overflow-y: hidden;
+	scroll-behavior: smooth;
 }
 .sidebar:hover .songlist {
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 .songlist ul li span {
-	display: flex;
 	gap: 10px;
 }
 .songlist ul li span:nth-child(1) > span {
@@ -84,7 +77,7 @@ nav ul li:hover:nth-child(2),
 .songlist ul li span:nth-child(2) {
 	color: var(--text-sm-color);
 	font-size: var(--text-sm);
-	transition: color 0.2s ease-in-out;
+	transition: all 0.1s ease-in-out;
 }
 .songlist ul li:hover span:nth-child(2) {
 	color: white;
@@ -92,11 +85,11 @@ nav ul li:hover:nth-child(2),
 .songlist ul li {
 	padding: 12px;
 	margin: 8px 0;
-	width: 100%;
-	border: 1px solid #1d1d1d;
+	width: 333px;
+	border: 1px solid rgb(29, 29, 29);
 	border-radius: 8px;
 	cursor: pointer;
-	transition: background-color 0.2s ease-in-out;
+	transition: all 0.1s ease-in-out;
 }
 .songlist ul li:hover {
 	background-color: #262626;
@@ -111,10 +104,11 @@ nav ul li:hover:nth-child(2),
 /* ---------- Main Page ---------- */
 section.main {
 	width: 75vw;
-	padding: 16px;
-	margin: 8px;
-	border-radius: 8px;
-	background: linear-gradient(180deg, #413333 16%, #121212 35%);
+	padding: 12px 16px;
+	margin: 8px 8px 8px 0;
+	border-radius: 7px;
+	background: rgb(65, 51, 51);
+	background: linear-gradient(180deg, rgba(65, 51, 51, 1) 16%, rgba(18, 18, 18, 1) 35%);
 }
 .playlist-heading {
 	font-size: var(--heading-large);
@@ -126,7 +120,6 @@ section.main {
 	display: flex;
 	gap: 30px;
 	flex-wrap: wrap;
-	justify-content: flex-start;
 }
 
 /* Playlist */
@@ -136,7 +129,7 @@ section.main {
 	padding: 14px 0;
 	border-radius: 8px;
 	cursor: pointer;
-	transition: background-color 0.3s ease;
+	transition: all 0.2s ease-in-out;
 	position: relative;
 }
 .playlist:hover {
@@ -159,7 +152,8 @@ section.main {
 	top: 180px;
 	right: 30px;
 	opacity: 0;
-	transition: top 0.3s ease, opacity 0.3s ease;
+	transition: all 0.3s ease-in-out;
+	transition-property: top, opacity;
 }
 .play-img:hover {
 	transform: scale(1.05);
@@ -190,52 +184,53 @@ section.main {
 
 /* ---------- Footer ---------- */
 footer {
-	position: relative;
+	position: absolute;
 	bottom: 0;
 	background-color: black;
 	width: 100%;
-	padding: 16px 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
+	padding: 10px;
 }
 footer img {
 	width: 30px;
 	cursor: pointer;
 }
 .btn {
-	display: flex;
 	gap: 10px;
-}
-.slidercontainer {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+	margin-top: 5px;
 }
 .slidercontainer span {
-	font-size: 12px;
+	font-size: 11px;
 	color: var(--text-sm-color);
 }
 footer .song-name {
+	position: absolute;
+	top: 20%;
+	left: 20px;
 	font-size: 16px;
-	display: flex;
-	align-items: center;
-	gap: 6px;
+}
+footer .song-name span {
+	margin: 0 2px;
 }
 footer .song-name #playingGif {
 	opacity: 0;
 	width: 130px;
-	transition: opacity 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
-footer .song-name > img:first-child {
+footer .song-name > img {
+	cursor: auto;
+}
+footer .song-name > img:nth-child(1) {
 	opacity: 0;
 	margin-right: 5px;
 }
 .volume {
-	display: flex;
-	align-items: center;
 	gap: 8px;
+	position: absolute;
+	top: 40%;
+	right: 3%;
+}
+.volume img {
+	width: 24px;
 }
 .volume-img {
 	width: 25px;
