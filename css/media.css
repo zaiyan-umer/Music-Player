@@ -1,55 +1,118 @@
-/* media.css - Responsive tweaks */
-
-@media (max-width: 1024px) {
-  .container {
-    flex-direction: column;
-  }
-
-  section.sidebar {
-    width: 100%;
-    order: 2;
-    padding: 10px 0;
-  }
-
-  section.main {
-    width: 100%;
-    order: 1;
-    margin: 0;
-    padding: 10px 16px;
-  }
-
-  footer {
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 12px 5px;
-  }
-
-  footer .btn img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .playlist-container {
-    justify-content: center;
-  }
+@media screen and (max-width: 768px) {
+	.sidebar {
+		position: fixed;
+		top: 0;
+		left: -100%;
+		height: 100%;
+		min-width: 45vw;
+		background-color: black;
+		z-index: 1000;
+		transition: left 0.3s ease-in-out;
+	}
+	.sidebar.active {
+		left: 0;
+	}
+	.hamburger {
+		display: block;
+	}
+	.main {
+		min-width: 100vw;
+		margin: 0;
+	}
+    #playingGif{
+        display: none;
+    }
+    .playlist-container{
+        justify-content: center;
+    }
 }
 
-@media (max-width: 600px) {
-  section.sidebar {
-    display: none;
-  }
 
-  footer {
-    flex-direction: column;
-    gap: 6px;
-  }
+@media screen and (max-width: 480px) {
+    body{
+        overflow: auto;
+    }
 
-  footer .song-name {
-    font-size: 14px;
-    gap: 4px;
-  }
+	.hamburger {
+		top: 15px;
+		left: 15px;
+		padding: 6px;
+	}
 
-  .slidercontainer input[type="range"] {
-    width: 100%;
-  }
+	.hamburger img {
+		width: 28px;
+		height: 28px;
+	}
+
+	.sidebar {
+		min-width: 90vw;
+	}
+
+	.playlist-container {
+		justify-content: center;
+		gap: 20px;
+        padding-bottom: 20vh;
+	}
+    .musicGif, .play-img{
+        display: none !important;
+    }
+
+	.playlist {
+		width: 85vw;
+	}
+
+	.playlist > div:nth-child(1) {
+		width: 100%;
+	}
+
+	.playlist > div:nth-child(1) img {
+		width: 100%;
+		height: auto;
+	}
+
+	.playlist h3,
+	.playlist p {
+		font-size: 16px;
+	}
+
+	footer {
+		padding: 6px 10px;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	footer .song-name {
+        top: 10px;
+		text-align: center;
+		font-size: 14px;
+	}
+
+	footer .btn img {
+		width: 30px;
+	}
+
+	.slidercontainer {
+		width: 100%;
+		padding: 0 5px;
+	}
+
+	.slidercontainer span {
+		font-size: 10px;
+	}
+
+	.volume {
+		position: static;
+		justify-content: center;
+		width: 100%;
+		gap: 6px;
+	}
+
+	.volume img {
+		width: 20px;
+	}
+
+	.volume-range {
+		width: 100px;
+	}
 }
+

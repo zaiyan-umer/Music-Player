@@ -37,3 +37,15 @@ else if (hours >= 16 && hours < 19) {
 else {
   playlistHeading.innerHTML = "Good Night";
 }
+
+const hamburger = document.getElementById("hamburger");
+const sidebar = document.querySelector(".sidebar");
+const menuIcon = document.getElementById("menuIcon");
+
+let isOpen = false;
+
+hamburger.addEventListener("click", () => {
+	sidebar.classList.toggle("active");
+	isOpen = !isOpen;
+	menuIcon.src = isOpen ? "img/cross.png" : "img/hamburger.png";
+});
