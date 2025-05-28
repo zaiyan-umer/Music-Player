@@ -1,32 +1,77 @@
-@media (max-width: 1024px) {
-	section.sidebar {
-		width: 100%;
-	}
-	section.main {
-		width: 100%;
-		margin: 0;
-	}
-	footer {
-		position: relative;
-	}
-}
-
+/* ---------- Mobile Devices ---------- */
 @media (max-width: 768px) {
-	.playlist {
-		width: 45%;
-	}
+  .container {
+    flex-direction: column;
+  }
+
+  section.sidebar {
+    width: 100%;
+    height: auto;
+    order: 2;
+  }
+
+  section.main {
+    width: 100%;
+    margin: 0;
+    order: 1;
+  }
+
+  .playlist-container {
+    justify-content: center;
+  }
+
+  footer {
+    position: static;
+    width: 100%;
+    padding: 12px 8px;
+  }
+
+  .song-name {
+    position: static;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .volume {
+    position: static;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+
+  .slidercontainer {
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .songlist ul li {
+    width: 100%;
+  }
 }
 
-@media (max-width: 480px) {
-	.playlist {
-		width: 100%;
-	}
-	.playlist-heading {
-		font-size: var(--heading-sm);
-	}
-	footer {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 8px;
-	}
+/* ---------- Tablets ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  section.sidebar {
+    width: 30vw;
+  }
+
+  section.main {
+    width: 70vw;
+  }
+
+  .playlist-container {
+    justify-content: space-around;
+  }
+
+  footer .song-name {
+    left: 10px;
+  }
+
+  .volume {
+    right: 10px;
+  }
 }
