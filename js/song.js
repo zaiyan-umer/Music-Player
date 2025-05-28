@@ -2,6 +2,7 @@ let currentSong = new Audio();
 const range = document.querySelector("#myRange");
 const playBtn = document.querySelector("#playBtn");
 const playingGif = document.querySelector("#playingGif");
+const soundGif = document.querySelector(".songplayicon");
 const songName = document.querySelector("#songName");
 const basePath = '/spotify/';
 let songs = [];
@@ -25,12 +26,12 @@ const populateUL = async () => {
     songUL.innerHTML += `
       <li class="flex justify-btw" data-file="${song}">
           <span class="flex justify-center align-center">
-              <img src="${basePath}img/music.svg" alt="music icon" />
+              <img src="img/music.svg" alt="" />
               <span class="songName">${displayName}</span>
           </span>
           <span class="playNowImg flex justify-center align-center">
               Play Now
-              <img class="songplayicon" src="${basePath}img/play.svg" alt="play icon" />
+              <img class="songplayicon" src="img/playGrey.svg" alt="" />
           </span>
       </li>`;
   }
@@ -40,41 +41,41 @@ const populateUL = async () => {
   Array.from(liItems).forEach(li => {
     li.addEventListener("click", (e) => {
       const songFile = li.dataset.file;
-      const fullPath = `${window.location.origin}${basePath}songs/${currentFolder}/${songFile}`;
+      const fullPath = `${window.location.origin}/songs/${currentFolder}/${songFile}`;
 
       // If same song is playing → Pause
       if (!currentSong.paused && currentSong.src === fullPath) {
         currentSong.pause();
         playingGif.style.opacity = 0;
         playBtn.src = basePath + "img/play.svg";
-        li.querySelector(".songplayicon").src = basePath + "img/play.svg";
-        li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="${basePath}img/play.svg" alt="play icon">`;
+        li.querySelector(".songplayicon").src = "img/play.svg";
+        li.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="img/play.svg" alt="">`;
       }
 
       // If same song is paused → Resume
       else if (currentSong.paused && currentSong.src === fullPath) {
         currentSong.play();
         playingGif.style.opacity = 1;
-        playBtn.src = basePath + "img/pause.svg";
-        li.querySelector(".songplayicon").src = basePath + "img/pause.svg";
+        playBtn.src = basePath + "img/play.svg";
+        li.querySelector(".songplayicon").src = "img/pause.svg";
         li.querySelector(".playNowImg").innerHTML = `
-          <img id="soundGif" src="${basePath}img/sound.gif" alt="sound animation">
-          <img class="songplayicon" src="${basePath}img/pause.svg" alt="pause icon">
+          <img id="soundGif" src="img/sound.gif" alt="">
+          <img class="songplayicon" src="img/pause.svg" alt="">
         `;
       }
 
       // New song → Play new song
       else {
         Array.from(liItems).forEach(item => {
-          item.querySelector(".songplayicon").src = basePath + "img/play.svg";
-          item.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="${basePath}img/play.svg" alt="play icon">`;
+          item.querySelector(".songplayicon").src = "img/play.svg";
+          item.querySelector(".playNowImg").innerHTML = `Play Now <img class="songplayicon" src="img/play.svg" alt="">`;
         });
 
         playMusic(songFile);
-        li.querySelector(".songplayicon").src = basePath + "img/pause.svg";
+        li.querySelector(".songplayicon").src = "img/pause.svg";
         li.querySelector(".playNowImg").innerHTML = `
-          <img id="soundGif" src="${basePath}img/sound.gif" alt="sound animation">
-          <img class="songplayicon" src="${basePath}img/pause.svg" alt="pause icon">
+          <img id="soundGif" src="img/sound.gif" alt="">
+          <img class="songplayicon" src="img/pause.svg" alt="">
         `;
       }
     });
@@ -84,46 +85,47 @@ populateUL()
 
 // Fetching Albums/Playlists from the server/local pc
 const getPlaylist = async () => {
-  let albums = await fetch(basePath + `songs/`);
-  let response = await albums.text();
-  let div = document.createElement("div");
-  div.innerHTML = response;
-  let a = div.getElementsByTagName("a");
+  const container = document.querySelector(".playlist-container");
+  container.innerHTML = "";
 
-  let array = Array.from(a);
-  for (let i = 0; i < array.length; i++) {
-    const e = array[i];
-    if (e.href.includes("/songs/")) {
-      let folder = e.href.split("/songs/")[1];
-      if (folder.endsWith("/")) folder = folder.slice(0, -1); // Remove trailing slash
+  try {
+    // Fetch the list of playlist folders from playlists-list.json
+    let response = await fetch(basePath + "songs/playlists-list.json");
+    let folders = await response.json(); // e.g. ["English", "Bollywood"]
 
-      let info = await fetch(`${basePath}songs/${folder}/info.json`);
-      let response = await info.json();
+    for (const folder of folders) {
+      try {
+        // Fetch info.json inside each folder
+        let infoRes = await fetch(`${basePath}songs/${folder}/info.json`);
+        let info = await infoRes.json();
 
-      // Create the playlist div manually so we can attach event listener before adding it
-      const playlistDiv = document.createElement("div");
-      playlistDiv.classList.add("playlist");
-      playlistDiv.setAttribute("data-folder", folder);
-      playlistDiv.innerHTML = `
-        <div>
-          <img src="${basePath}songs/${folder}/cover.jpg" alt="Cover image for ${folder}" />
-        </div>
-        <div class="play-img">
-          <img src="${basePath}img/playBlack.svg" alt="play icon">
-        </div>
-        <img class="musicGif" src="${basePath}img/sound.gif" style="opacity: 0;" alt="sound animation">
-        <h3>${response.title}</h3>
-        <p>${response.description}</p>
-      `;
+        const playlistDiv = document.createElement("div");
+        playlistDiv.classList.add("playlist");
+        playlistDiv.setAttribute("data-folder", folder);
+        playlistDiv.innerHTML = `
+          <div>
+            <img src="${basePath}songs/${folder}/cover.jpg" alt="Cover image for ${info.title}" />
+          </div>
+          <div class="play-img">
+            <img src="${basePath}img/playBlack.svg" alt="play icon">
+          </div>
+          <img class="musicGif" src="${basePath}img/sound.gif" style="opacity: 0;" alt="sound animation">
+          <h3>${info.title}</h3>
+          <p>${info.description}</p>
+        `;
 
-      // Add click event before appending
-      playlistDiv.addEventListener("click", () => {
-        currentFolder = folder;
-        populateUL();
-      });
+        playlistDiv.addEventListener("click", () => {
+          currentFolder = folder;
+          populateUL();
+        });
 
-      document.querySelector(".playlist-container").appendChild(playlistDiv);
+        container.appendChild(playlistDiv);
+      } catch (err) {
+        console.error(`Failed to load info for playlist ${folder}:`, err);
+      }
     }
+  } catch (err) {
+    console.error("Failed to fetch playlists-list.json:", err);
   }
 };
 getPlaylist();
